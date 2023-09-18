@@ -1,0 +1,122 @@
+<banner [principalTitle]="'Mascotas'" [pageSection]="'Mascotas'"></banner>
+
+<section class="section-sm">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12 mx-auto">
+        <button pButton pRipple label="Nuevo" class="p-button-success" (click)="createPet()"></button>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-12 mx-auto">
+        <p-table
+          #dt1
+          [value]="pets"
+          [tableStyle]="{ 'min-width': '50rem' }"
+          [styleClass]="'p-datatable-sm'"
+          [globalFilterFields]="['typeDescription', 'name', 'breed', 'sizeDescription', 'genderDescription', 'statusDescription']"
+        >
+          <ng-template pTemplate="caption">
+            <div class="flex">
+              <button pButton label="Limpiar" class="p-button-outlined" icon="pi pi-filter-slash" (click)="clear(dt1)"></button>
+              <span class="p-input-icon-left ml-auto">
+                <i class="pi pi-search"></i>
+                <input pInputText type="text" (input)="applyFilterGlobal($event, 'contains')" placeholder="Buscar" />
+              </span>
+            </div>
+          </ng-template>
+          <ng-template pTemplate="header">
+            <tr>
+              <th>Tipo</th>
+              <th>Nombre</th>
+              <th>Raza</th>
+              <th>Tamaño</th>
+              <th>Sexo</th>
+              <th>Estado</th>
+              <th></th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-pet>
+            <tr>
+              <td>{{ pet.typeDescription }}</td>
+              <td>{{ pet.name }}</td>
+              <td>{{ pet.breed }}</td>
+              <td>{{ pet.sizeDescription }}</td>
+              <td>{{ pet.genderDescription }}</td>
+              <td>
+                <p-tag [value]="pet.statusDescription" [severity]="getStatus(pet.status)"></p-tag>
+              </td>
+              <td>
+                <button
+                  pbutton=""
+                  pripple=""
+                  icon="pi pi-pencil"
+                  class="p-element p-button-rounded p-button-success mr-2 p-button p-component p-button-icon-only"
+                  (click)="edit(pet)"
+                >
+                  <span class="p-button-icon pi pi-pencil" aria-hidden="true"></span>
+                </button>
+                <button
+                  pbutton=""
+                  pripple=""
+                  icon="pi pi-trash"
+                  class="p-element p-button-rounded p-button-warning p-button p-component p-button-icon-only"
+                  (click)="delete(pet)"
+                >
+                  <span class="p-button-icon pi pi-trash" aria-hidden="true"></span>
+                </button>
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+    </div>
+  </div>
+
+  <div class="container" style="margin-top: 60px">
+    <div class="row">
+      <h3>Mascota Random Redux</h3>
+    </div>
+
+    <div class="row" style="margin-top: 25px">
+      <div class="col-lg-6 mx-auto" style="text-align: center">
+        <button pButton pRipple label="Agregar Random" class="p-button-success" (click)="addRandom()"></button>
+      </div>
+      <div class="col-lg-6 mx-auto" style="text-align: center">
+        <button pButton pRipple label="Remover Random" class="p-button-warning" (click)="removeRandom()"></button>
+      </div>
+    </div>
+    <div class="row" style="margin-top: 25px">
+      <div class="col-lg-12 mx-auto">
+        <p-table #dt2 [value]="petsRandom" [tableStyle]="{ 'min-width': '50rem' }" [styleClass]="'p-datatable-sm'">
+          <ng-template pTemplate="header">
+            <tr>
+              <th>Tipo</th>
+              <th>Nombre</th>
+              <th>Raza</th>
+              <th>Tamaño</th>
+              <th>Sexo</th>
+              <th>Estado</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-petRandom>
+            <tr>
+              <td>{{ petRandom.typeDescription }}</td>
+              <td>{{ petRandom.name }}</td>
+              <td>{{ petRandom.breed }}</td>
+              <td>{{ petRandom.sizeDescription }}</td>
+              <td>{{ petRandom.genderDescription }}</td>
+              <td>
+                <p-tag [value]="getStatusDescription(petRandom.status)" [severity]="getStatus(petRandom.status)"></p-tag>
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<p-toast></p-toast>
+<p-confirmDialog [style]="{ width: '50vw' }"></p-confirmDialog>
+<pets-c-or-u></pets-c-or-u>

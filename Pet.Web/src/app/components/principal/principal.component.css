@@ -1,0 +1,17 @@
+@media (max-width: 991px) {
+  .logo-img {
+    max-width: 350px;
+  }
+
+  .secondary-btns {
+    margin: 6%;
+  }
+}
+
+.card-body {
+  text-align: center;
+}
+
+.secondary-btns {
+  margin: 0% 5% 0% 5%;
+}

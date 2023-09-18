@@ -1,0 +1,98 @@
+<p-dialog
+  [(visible)]="petCreateOrUpdateDialog"
+  [style]="{ width: '650px' }"
+  header="Mascota!"
+  [modal]="true"
+  styleClass="p-fluid"
+  (onHide)="cancel()"
+>
+  <ng-template pTemplate="content">
+    <form [formGroup]="petForm">
+      <input type="text" pInputText id="id" formControlName="id" hidden />
+
+      <div class="field">
+        <label for="name">Nombre</label>
+        <input type="text" pInputText id="name" formControlName="name" required autofocus />
+        <small class="p-error" *ngIf="fieldIsInvalid('name')">Requerido.</small>
+      </div>
+      <div class="field">
+        <label for="description">Raza</label>
+        <textarea id="description" pInputTextarea formControlName="breed" required rows="3" cols="20"></textarea>
+        <small class="p-error" *ngIf="fieldIsInvalid('breed')">Requerido.</small>
+      </div>
+
+      <div class="field">
+        <label class="mb-3">Tipo</label>
+        <div class="formgrid grid">
+          <div class="field-radiobutton col-3">
+            <p-radioButton id="type1" name="type" value="1" formControlName="type"></p-radioButton>
+            <label for="type1">Perro</label>
+          </div>
+          <div class="field-radiobutton col-3">
+            <p-radioButton id="type2" name="type" value="2" formControlName="type"></p-radioButton>
+            <label for="type2">Gato</label>
+          </div>
+          <div class="field-radiobutton col-3">
+            <p-radioButton id="type3" name="type" value="3" formControlName="type"></p-radioButton>
+            <label for="type3">Pájaro</label>
+          </div>
+        </div>
+        <small class="p-error" *ngIf="fieldIsInvalid('type')">Requerido.</small>
+      </div>
+
+      <div class="row">
+        <label class="mb-3">Tamaño</label>
+        <div class="row">
+          <div class="field-radiobutton col-3">
+            <p-radioButton id="size1" name="size" value="1" formControlName="size"></p-radioButton>
+            <label for="size1">Pequeño</label>
+          </div>
+          <div class="field-radiobutton col-3">
+            <p-radioButton id="size2" name="size" value="2" formControlName="size"></p-radioButton>
+            <label for="size2">Mediano</label>
+          </div>
+          <div class="field-radiobutton col-3">
+            <p-radioButton id="size3" name="size" value="3" formControlName="size"></p-radioButton>
+            <label for="size3">Grande</label>
+          </div>
+          <div class="field-radiobutton col-3">
+            <p-radioButton id="size4" name="size" value="4" formControlName="size"></p-radioButton>
+            <label for="size4">Gigante</label>
+          </div>
+        </div>
+        <small class="p-error" *ngIf="fieldIsInvalid('size')">Requerido.</small>
+      </div>
+
+      <div class="field">
+        <label for="gender">Sexo</label>
+        <p-dropdown
+          formControlName="gender"
+          [options]="genders"
+          optionLabel="name"
+          optionValue="code"
+          [required]="true"
+          placeholder="Seleccione"
+        ></p-dropdown>
+        <small class="p-error" *ngIf="fieldIsInvalid('gender')">Requerido.</small>
+      </div>
+
+      <div class="field">
+        <label for="status">Estado</label>
+        <p-dropdown
+          formControlName="status"
+          [options]="statuses"
+          optionLabel="name"
+          optionValue="code"
+          [required]="true"
+          placeholder="Seleccione"
+        ></p-dropdown>
+        <small class="p-error" *ngIf="fieldIsInvalid('status')">Requerido.</small>
+      </div>
+    </form>
+  </ng-template>
+
+  <ng-template pTemplate="footer">
+    <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+    <button pButton pRipple label="Guardar" icon="pi pi-check" class="p-button-text" (click)="savePet()"></button>
+  </ng-template>
+</p-dialog>

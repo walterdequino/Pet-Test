@@ -1,0 +1,176 @@
+{
+  "env": {
+    "browser": true,
+    "es2021": true
+  },
+  "extends": [
+    // "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:import/errors",
+    "plugin:import/warnings",
+    "plugin:import/typescript"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaVersion": 12,
+    "sourceType": "module",
+    "project": "./tsconfig.json"
+  },
+  "plugins": ["@typescript-eslint", "import"],
+  "settings": {
+    "import/parsers": {
+      "@typescript-eslint/parser": [".ts"]
+    },
+    "import/resolver": {
+      "typescript": {}
+    }
+  },
+  "rules": {
+    "import/order": [
+      "error",
+      {
+        "pathGroups": [
+          {
+            "pattern": "@angular/**",
+            "group": "builtin"
+          },
+          {
+            "pattern": "{nexus-auth,{projects,src,@{containers,core,shared,test,src,app}}/**}",
+            "group": "internal"
+          }
+        ],
+        "groups": ["builtin", "external", ["internal", "parent", "sibling", "index"]],
+        "pathGroupsExcludedImportTypes": ["builtin", "internal"],
+        "newlines-between": "always",
+        "alphabetize": {
+          "order": "asc",
+          "caseInsensitive": true
+        }
+      }
+    ],
+    "import/no-unresolved": [0, { "caseSensitive": false }],
+    "import/no-duplicates": [0, { "caseSensitive": false }],
+    "import/namespace": [0, { "caseSensitive": false }],
+    "@typescript-eslint/explicit-member-accessibility": [
+      "error",
+      {
+        "overrides": {
+          "constructors": "no-public"
+        }
+      }
+    ],
+    "@typescript-eslint/array-type": [
+      "error",
+      {
+        "default": "array"
+      }
+    ],
+    "@typescript-eslint/explicit-function-return-type": "error",
+    "@typescript-eslint/no-inferrable-types": 0,
+    "@typescript-eslint/no-empty-interface": 1, // TODO: enable again once our interfaces are finalized
+    "@typescript-eslint/no-empty-function": 1,
+    "@typescript-eslint/ban-types": 1,
+    "@typescript-eslint/member-ordering": [
+      "error",
+      {
+        "default": [
+          // Index signature
+          "signature",
+
+          // Fields
+          "public-static-field",
+          "protected-static-field",
+          "private-static-field",
+
+          "public-decorated-field",
+          "protected-decorated-field",
+          "private-decorated-field",
+
+          "public-instance-field",
+          "protected-instance-field",
+          "private-instance-field",
+
+          "public-abstract-field",
+          "protected-abstract-field",
+
+          "public-field",
+          "protected-field",
+          "private-field",
+
+          "static-field",
+          "instance-field",
+          "abstract-field",
+
+          "decorated-field",
+
+          "field",
+
+          // Constructors
+          "public-constructor",
+          "protected-constructor",
+          "private-constructor",
+
+          "constructor",
+
+          // Methods
+          "public-static-method",
+          "protected-static-method",
+          "private-static-method",
+
+          "public-decorated-method",
+          "protected-decorated-method",
+          "private-decorated-method",
+
+          "public-instance-method",
+          "protected-instance-method",
+          "private-instance-method",
+
+          "public-abstract-method",
+          "protected-abstract-method",
+
+          "public-method",
+          "protected-method",
+          "private-method",
+
+          "static-method",
+          "instance-method",
+          "abstract-method",
+
+          "decorated-method",
+
+          "method"
+        ]
+      }
+    ]
+  },
+  "overrides": [
+    {
+      "files": ["*.facade.ts"],
+      "rules": {
+        "@typescript-eslint/member-ordering": [
+          "error",
+          {
+            "default": ["public-instance-method", "constructor"]
+          }
+        ]
+      }
+    },
+    {
+      "files": ["*.effects.ts"],
+      "rules": {
+        "@typescript-eslint/member-ordering": [
+          "error",
+          {
+            "default": ["constructor", "public-instance-field"]
+          }
+        ]
+      }
+    },
+    {
+      "files": ["src/test/**/*.ts"],
+      "rules": {
+        "@typescript-eslint/no-empty-function": 0
+      }
+    }
+  ]
+}
